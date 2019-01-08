@@ -1,4 +1,4 @@
-trhmoeiufheapiguhpackage authorReco;
+package authorReco;
 
 
 import java.util.*;
