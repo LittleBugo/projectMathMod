@@ -1,9 +1,7 @@
 package authorReco;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.*;
 
 
@@ -37,13 +35,13 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 	}
 
 	/**
-	 * Method recognizing and returning the author of the given sentence 
+	 * Method recognizing and returning the author of the given sentence
 	 * (the unknown author can also be picked up).
-	 * 
+	 *
 	 * @param sentence the sentence whose author is to recognize.
 	 * @return the author of the sentence as recognized by the recognition system.
 	 */
-	public String recognizeAuthorSentence(String sentence) {	
+	public String recognizeAuthorSentence(String sentence) {
 		return authors.get(rand.nextInt(authors.size()));
 	}
 
@@ -74,10 +72,7 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 			e.printStackTrace();
 		}
 
-
-
 		//computation of the performance of the recognition system
 		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/sentences_100sentences.txt","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt"));
-
 	}
 }
