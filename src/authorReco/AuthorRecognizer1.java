@@ -71,6 +71,12 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	    loadAuthorConfigurationFile(configFile);
         loadVocabularyFile(vocabFile);
 	    loadAuthorFile(authorFile);
+        this.authorLangModelsMap = new HashMap<>();
+        for (String auteur : super.authors)
+        {
+            Map tempToAdd = new HashMap();
+            tempToAdd.put("", "");
+        }
 	}
 
 	/**
