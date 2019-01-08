@@ -1,8 +1,14 @@
 package authorReco;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
+
 import authorEval.*;
+import langModel.MiscUtils;
 
 /**
  * Class BaselineAuthorRecognizer: a baseline author recognition system that "recognizes" 
@@ -48,12 +54,27 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 	 */
 	public static void main(String[] args) {
 		//initialization of the recognition system
-		
+		BaselineAuthorRecognizer b = new BaselineAuthorRecognizer("data/small_author_corpus/validation/authors_100sentences_ref.txt");
+
+
 		
 		//computation of the hypothesis author file
-		
+		try {
+			File sentenceFile = new File("data/small_author_corpus/validation/sentences_100sentences.txt");
+			Scanner scan = new Scanner(sentenceFile);
+			MiscUtils writeur = new MiscUtils();
+
+			String temoin = "nothing here";
+			while (scan.hasNextLine())
+			{
+				temoin = scan.nextLine();
+				writeur.writeFile(b.recognizeAuthorSentence(temoin), "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
+			}
+			System.out.println("FINIS !");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		//computation of the performance of the recognition system
-
 	}
 }
