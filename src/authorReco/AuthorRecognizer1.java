@@ -1,11 +1,9 @@
 package authorReco;
 
-
 import java.util.*;
 
 import authorEval.*;
 import langModel.*;
-
 
 /**
  * Class AuthorRecognizer1: a first author recognition system that recognizes 
@@ -25,9 +23,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 * built from the file path given in the AuthorConfigurationFile attribute.
 	 */
 	protected Map<String, Map<String, LanguageModelInterface>> authorLangModelsMap;
-	
-	
-	
+
 	/**
 	 * Constructor.
 	 * 
@@ -41,9 +37,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	public AuthorRecognizer1(String configFile, String vocabFile, String authorFile) {
 		//TODO
 	}
-	
-	
-	
+
 	/**
 	 * Method recognizing and returning the author of the given sentence 
 	 * (the unknown author can also be picked up).
@@ -55,9 +49,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 		//TODO
 		return UNKNOWN_AUTHOR;
 	}
-	
-	
-	
+
 	/**
 	 * Main method.
 	 * 

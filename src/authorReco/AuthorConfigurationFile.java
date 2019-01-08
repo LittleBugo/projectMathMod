@@ -1,10 +1,8 @@
 package authorReco;
 
-
 import java.util.*;
 
 import langModel.*;
-
 
 /**
  * Abstract AuthorConfigurationFile: class representing a configuration file indicating the file paths of the author language models.
@@ -23,8 +21,6 @@ public class AuthorConfigurationFile {
 	 */
 	protected Map<String,Map<String,String>> authorNgramCountMap;
 
-
-	
 	/**
 	 * Constructor.
 	 */
@@ -32,7 +28,6 @@ public class AuthorConfigurationFile {
 		authorNgramCountMap = new HashMap<String,Map<String,String>>();
 	}
 
-	
 	/**
 	 * Accessor to the authorNgramCountMap attribute.
 	 * 
@@ -42,7 +37,6 @@ public class AuthorConfigurationFile {
 		return this.authorNgramCountMap;
 	}
 	
-	
 	/**
 	 * Accessor to the authors of the authorNgramCountMap attribute.
 	 * 
@@ -51,8 +45,7 @@ public class AuthorConfigurationFile {
 	protected Set<String> getAuthors() {
 		return getAuthorNgramCountMap().keySet();
 	}
-	
-	
+
 	/**
 	 * Accessor to the language model names of a particular author in the authorNgramCountMap attribute.
 	 * 
@@ -62,8 +55,7 @@ public class AuthorConfigurationFile {
 	protected Set<String> getNgramCountNames(String author) {
 		return getAuthorNgramCountMap().get(author).keySet();
 	}
-	
-	
+
 	/**
 	 * Method returning a collection of language model file paths associated with an author.
 	 * 
@@ -73,7 +65,6 @@ public class AuthorConfigurationFile {
 	protected Collection<String> getNgramCountPath(String author) {
 		return getAuthorNgramCountMap().get(author).values();
 	}
-	
 	
 	/**
 	 * Accessor to the language model file path of a particular language model name in the authorNgramCountMap attribute.
@@ -85,8 +76,7 @@ public class AuthorConfigurationFile {
 	protected String getNgramCountPath(String author, String ngramCountName) {
 		return getAuthorNgramCountMap().get(author).get(ngramCountName);
 	}
-	
-	
+
 	/**
 	 * Method adding a language model file path to the authorNgramCountMap attribute.
 	 * 
@@ -96,15 +86,17 @@ public class AuthorConfigurationFile {
 	 */
 	private void addTuple2AuthorNgramCountMap(String author, String ngramCountName, String ngramCountFilePath) {
 		Map<String,String> namePathMap = null;
-		if (! getAuthorNgramCountMap().containsKey(author)) 
-			 namePathMap = new HashMap<String,String>();
-		else 
+
+		if (! getAuthorNgramCountMap().containsKey(author)) {
+			namePathMap = new HashMap<String, String>();
+		} else {
 			namePathMap = getAuthorNgramCountMap().get(author);
-		 namePathMap.put(ngramCountName, ngramCountFilePath);
-		 getAuthorNgramCountMap().put(author,namePathMap);
+		}
+
+		namePathMap.put(ngramCountName, ngramCountFilePath);
+		getAuthorNgramCountMap().put(author,namePathMap);
 	}
-	
-	
+
 	/**
 	 * Method parsing a configuration file where each line is a tuple in the following format:
 	 * author ngramCountName ngramCountFilePath
@@ -127,5 +119,4 @@ public class AuthorConfigurationFile {
 			}
 		}
 	}
-	
 }

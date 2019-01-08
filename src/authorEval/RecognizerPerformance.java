@@ -1,13 +1,10 @@
 package authorEval;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 import langModel.*;
-
-
 
 /**
  * Class RecognizerPerformance: class to compute the performance of a recognition system.
@@ -34,8 +31,7 @@ public class RecognizerPerformance {
 		
 		return evaluate(ref,hyp);	
 	}
-	
-	
+
 	/**
 	 * Method using the sentences given in two lists to compute the accuracy of a recognition system, i.e. the number
 	 * of sentences whose author is correctly recognized by the system.
@@ -55,15 +51,15 @@ public class RecognizerPerformance {
 		}
 		
 		Double correct = 0.0;
-		for (int i = 0 ; i < refAuthor.size() ; i++ ) 
-			if (refAuthor.get(i).equalsIgnoreCase(hypAuthor.get(i))) 
+		for (int i = 0 ; i < refAuthor.size() ; i++) {
+			if (refAuthor.get(i).equalsIgnoreCase(hypAuthor.get(i))) {
 				correct++;
+			}
+		}
 
 		return (double) correct/ refAuthor.size();	
 	}
-	
-	
-	
+
 	/**
 	 * Method using the sentences given in two files to compute the accuracy of a recognition system for
 	 * each author, i.e. the number of sentences whose author is correctly recognized by the system.
@@ -83,8 +79,7 @@ public class RecognizerPerformance {
 		
 		return evaluateAuthors(gold,hyp);	
 	}
-	
-	
+
 	/**
 	 * Method using the sentences given in two lists to compute the accuracy of a recognition system for
 	 * each author, i.e. the number of sentences whose author is correctly recognized by the system.
@@ -114,8 +109,7 @@ public class RecognizerPerformance {
 			//increments the number of sentences of the current gold author
 			if(nbSentAuthor.containsKey(lang)){
 				nbSentAuthor.put(lang, nbSentAuthor.get(lang)+1);
-			}
-			else{
+			} else{
 				nbSentAuthor.put(lang, 1);
 			}
 			//increments the number of correct sentences of the current gold author if equal to the current hyp author
@@ -123,8 +117,7 @@ public class RecognizerPerformance {
 				nbCorrect ++;
 				if(nbCorrectAuthor.containsKey(lang)){
 					nbCorrectAuthor.put(lang, nbCorrectAuthor.get(lang)+1);
-				}
-				else{
+				} else{
 					nbCorrectAuthor.put(lang, 1);
 				}
 			}
@@ -135,10 +128,11 @@ public class RecognizerPerformance {
 		double score;
 		
 		for(String l : nbSentAuthor.keySet()){
-			if(nbCorrectAuthor.containsKey(l))
+			if(nbCorrectAuthor.containsKey(l)) {
 				score = (double) nbCorrectAuthor.get(l) / nbSentAuthor.get(l);
-			else
+			} else {
 				score = 0;
+			}
 			str_res += l + " : " + score + " (" + nbSentAuthor.get(l) + ")\n";
 		}
 		score = (double) nbCorrect / refAuthor.size();
@@ -146,5 +140,4 @@ public class RecognizerPerformance {
 		
 		return str_res;
 	}
-
 }

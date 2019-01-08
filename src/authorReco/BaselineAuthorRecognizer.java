@@ -1,10 +1,8 @@
 package authorReco;
 
-
 import java.util.*;
 
 import authorEval.*;
-
 
 /**
  * Class BaselineAuthorRecognizer: a baseline author recognition system that "recognizes" 
@@ -19,8 +17,6 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 	 */
 	protected Random rand;
 
-	
-
 	/**
 	 * Constructor.
 	 * 
@@ -34,8 +30,6 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 		rand = new Random(System.currentTimeMillis());
 	}
 
-	
-	
 	/**
 	 * Method recognizing and returning the author of the given sentence 
 	 * (the unknown author can also be picked up).
@@ -46,9 +40,7 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 	public String recognizeAuthorSentence(String sentence) {	
 		return authors.get(rand.nextInt(authors.size()));
 	}
-	
-	
-	
+
 	/**
 	 * Main method.
 	 * 

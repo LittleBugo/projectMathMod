@@ -1,10 +1,8 @@
 package authorReco;
 
-
 import java.util.*;
 
 import langModel.*;
-
 
 /**
  * Abstract class AuthorRecognizerAbstractClass: abstract class that every author recognition system has to extend.
@@ -17,7 +15,6 @@ public abstract class AuthorRecognizerAbstractClass {
 	 * the constant for unknown author names.
 	 */
 	public static final String UNKNOWN_AUTHOR = "unknown";
-	
 	
 	/**
 	 * The configuration file containing the information of the language models used in the recognition system.
@@ -33,8 +30,6 @@ public abstract class AuthorRecognizerAbstractClass {
 	 * List of authors recognized by the system. 
 	 */
 	protected List<String> authors; 
-	
-	
 
 	/**
 	 * Constructor.
@@ -45,8 +40,6 @@ public abstract class AuthorRecognizerAbstractClass {
 		authors = new LinkedList<String>();
 	}
 	
-
-	
 	/**
 	 * Accessor to the configuration file.
 	 * 
@@ -55,8 +48,7 @@ public abstract class AuthorRecognizerAbstractClass {
 	public AuthorConfigurationFile getAuthorConfigurationFile() {
 		return this.configLangModels;
 	}
-	
-	
+
 	/**
 	 * Accessor to the vocabulary attribute.
 	 * 
@@ -65,8 +57,7 @@ public abstract class AuthorRecognizerAbstractClass {
 	public VocabularyInterface getVocabularyLM() {
 		return this.vocabularyLM;
 	}
-	
-	
+
 	/**
 	 * Accessor to the authors attribute.
 	 * 
@@ -75,8 +66,6 @@ public abstract class AuthorRecognizerAbstractClass {
 	public List<String> getAuthors() {
 		return this.authors;
 	}
-	
-	
 	
 	/**
 	 * Method setting the configuration file, from a configuration file path.
@@ -88,7 +77,6 @@ public abstract class AuthorRecognizerAbstractClass {
 		configLangModels.loadNgramCountPath4Lang(configFile);
 	}
 
-
 	/**
 	 * Method setting the vocabulary, from a given file path.	
 	 * 
@@ -98,8 +86,7 @@ public abstract class AuthorRecognizerAbstractClass {
 	public void loadVocabularyFile(String vocabFile) {
 		vocabularyLM.readVocabularyFile(vocabFile);
 	}
-	
-	
+
 	/**
 	 * Method setting the authors, from a given file path.	
 	 * 
@@ -114,9 +101,7 @@ public abstract class AuthorRecognizerAbstractClass {
 			authors.add(author);
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Method recognizing and returning the author of the given sentence 
 	 * (the unknown author can also be picked up).
@@ -125,8 +110,6 @@ public abstract class AuthorRecognizerAbstractClass {
 	 * @return the author of the sentence as recognized by the recognition system.
 	 */
 	public abstract String recognizeAuthorSentence(String sentence);
-
-	
 
 	/**
 	 * Method processing the sentences of a given reference file (one per line),
@@ -148,8 +131,9 @@ public abstract class AuthorRecognizerAbstractClass {
 			authorPredict = recognizeAuthorSentence(sentence);
 			authorPrediction.append(authorPredict);
 			authorPrediction.append("\n");
-			if(i % 1000 == 0)
+			if(i % 1000 == 0) {
 				System.out.println("Phrases traitées jusqu'à " + i);
+			}
 			i ++;
 		}
 		

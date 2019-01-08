@@ -1,11 +1,9 @@
 package authorReco;
 
-
 import java.util.*;
 
 import authorEval.*;
 import langModel.*;
-
 
 /**
  * Class UnknownAuthorRecognizer1: a first author recognition system that recognizes 
@@ -31,8 +29,6 @@ public class UnknownAuthorRecognizer1 extends AuthorRecognizer1 {
 		super(configFile, vocabFile, authorFile);
 	}
 
-	
-	
 	/**
 	 * Method recognizing and returning the author of the given sentence 
 	 * (the unknown author can also be picked up).
@@ -45,8 +41,6 @@ public class UnknownAuthorRecognizer1 extends AuthorRecognizer1 {
 		return UNKNOWN_AUTHOR;
 	}
 
-	
-	
 	/**
 	 * Main method.
 	 * 
@@ -61,5 +55,4 @@ public class UnknownAuthorRecognizer1 extends AuthorRecognizer1 {
 				
 		//computation of the performance of the recognition system
 	}
-
 }

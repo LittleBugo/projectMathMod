@@ -1,9 +1,6 @@
 package authorReco;
 
-
 import langModel.*;
-
-
 
 /**
  * Class CreateLanguageModels: a class to create the language models used in the recognition systems.
@@ -21,5 +18,4 @@ public class CreateLanguageModels {
 	public static void main(String[] args) {
 		//create the language models from the training corpora
 	}
-
 }
