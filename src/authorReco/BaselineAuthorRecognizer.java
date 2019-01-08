@@ -69,10 +69,15 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 				mot.writeFile(b.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
 			}
 			System.out.println("FINIS !");
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+
+
 		//computation of the performance of the recognition system
+		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/sentences_100sentences.txt","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt"));
+
 	}
 }
