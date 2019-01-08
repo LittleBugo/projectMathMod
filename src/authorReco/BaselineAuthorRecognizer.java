@@ -55,20 +55,18 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 	public static void main(String[] args) {
 		//initialization of the recognition system
 		BaselineAuthorRecognizer b = new BaselineAuthorRecognizer("data/small_author_corpus/validation/authors_100sentences_ref.txt");
-
-
 		
 		//computation of the hypothesis author file
 		try {
 			File sentenceFile = new File("data/small_author_corpus/validation/sentences_100sentences.txt");
 			Scanner scan = new Scanner(sentenceFile);
-			MiscUtils writeur = new MiscUtils();
-
+			MiscUtils mot = new MiscUtils();
+			mot.writeFile("","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",false);
 			String temoin = "nothing here";
 			while (scan.hasNextLine())
 			{
 				temoin = scan.nextLine();
-				writeur.writeFile(b.recognizeAuthorSentence(temoin), "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
+				mot.writeFile(b.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
 			}
 			System.out.println("FINIS !");
 		} catch (IOException e) {
