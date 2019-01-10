@@ -36,37 +36,46 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 * the names of the authors recognized by the system.
 	 */
 	public AuthorRecognizer1(String configFile, String vocabFile, String authorFile) {
-	    /*//Initialisation du scanneur pour lire le fichier
-	    Scanner scan = new Scanner(configFile);
+	    //Initialisation du scanneur pour lire le fichier
+	    Scanner scanConfig = new Scanner(configFile);
 	    //Initialisation de la HashMap qui est en attribut
 	    this.authorLangModelsMap = new HashMap();
 	    //Initialisation du ngramCounts qui va permettre de créer le languagueModel qui est dans la MAP.
 	    NgramCounts ngram = new NgramCounts();
-	    //Initialisation du Vocabulary qui va de paire avec le ngram pour le languageModel.
-	    Vocabulary vocab = new Vocabulary();
-	    //remplir le vocabulaire avec le chemin reçu en paramètre
-	    vocab.readVocabularyFile(vocabFile);
+	    //Initialisation du Vocabulary qui va de paire avec le ngram pour le languageModel. grâce à la classe supérieure
+	    super.loadVocabularyFile(vocabFile);
 	    //Initialisation du language (ici Naive mais on pourrait aussi avoir LaPlace
-        LanguageModelInterface language = new NaiveLanguageModel();
+        LanguageModelInterface language = new LaplaceLanguageModel();
+
+        //Initialisation des auteurs qui seront reconnus par le système
+		super.loadAuthorFile(authorFile);
+
         //Lire chaque ligne du fichier s'il existe.
-		while(scan.hasNextLine()){
+		while(scanConfig.hasNextLine()){
             //Avancée dans le fichier
-            String ligne = scan.nextLine();
+            String ligne = scanConfig.nextLine();
             //découper dans le tableau les
             String[] contientDesMots = ligne.split(" ");
-            //Remplir le ngramCounts grâce au chemin qui même à l'"authorFile".
-            ngram.readNgramCountsFile(contientDesMots[2]);
-            //initialise l'intérieur du language avec le ngram et vocab initialisé juste avant
-            language.setNgramCounts(ngram, vocab);
-            //Créé la map qui est intégrée par la suite à la map
-            Map table = new HashMap();
-            //ajouter à la table, la ligne
-            table.put(contientDesMots[1], language);
-            //ajouter à l'atribut la table créé préalablement.
-            this.authorLangModelsMap.put(contientDesMots[0], table);
-        }
-        */
+			//Vérification que la ligne où il y a écris le nom de l'auteur coordonne avec les auteurs entrés dans le système.
+            if(super.authors.contains(contientDesMots[0]))
+			{
 
+				//Remplir le ngramCounts grâce au chemin qui même à l'"authorFile".
+				ngram.readNgramCountsFile(contientDesMots[2]);
+				//initialise l'intérieur du language avec le ngram et vocab initialisé juste avant
+				language.setNgramCounts(ngram, super.vocabularyLM);
+				//Créé la map qui est intégrée par la suite à la map
+				Map table = new HashMap();
+				//ajouter à la table, la ligne
+				table.put(contientDesMots[1], language);
+				//ajouter à l'atribut la table créé préalablement.
+				this.authorLangModelsMap.put(contientDesMots[0], table);
+
+			}
+
+        }
+
+/*
 	    super();
 	    loadAuthorConfigurationFile(configFile);
         loadVocabularyFile(vocabFile);
@@ -75,9 +84,9 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
         for (String auteur : super.authors)
         {
             Map tempToAdd = new HashMap();
-            tempToAdd.put("", "");
+            tempToAdd.put("", super.vocabularyLM);
         }
-	}
+*/	}
 
 	/**
 	 * Method recognizing and returning the author of the given sentence 
@@ -87,9 +96,9 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 * @return the author of the sentence as recognized by the recognition system.
 	 */
 	public String recognizeAuthorSentence(String sentence) {
-		if (sentence != " "){
+		/*if (sentence != " "){
 			return super.authors.get(authors.size());
-		}
+		}*/
 		return UNKNOWN_AUTHOR;
 	}
 
@@ -100,7 +109,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 */
 	public static void main(String[] args) {
 		//initialization of the recognition system
-		AuthorRecognizer1 aut = new AuthorRecognizer1(" "," ", " ");
+		AuthorRecognizer1 aut = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
 
 		//computation of the hypothesis author file
 		File sentenceFile = new File("data/small_author_corpus/validation/authors.txt");
