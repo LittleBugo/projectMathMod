@@ -102,7 +102,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 */
 	public String recognizeAuthorSentence(String sentence, int i) {
 		double count=0.0;
-		double tmp = 0.0;
+		double tmp;
 		String recognizeAuthor= "Je ne sais pas";
 		for(String author : super.authors)
 		{
@@ -114,7 +114,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			{
 				tmp = this.authorLangModelsMap2.get(author).get(author+"_bi").getSentenceProb(sentence);
 			}
-			if(tmp > count && tmp > 0.0)
+			if(tmp >= count && tmp > 0.0)
 			{
 				count=tmp;
 				recognizeAuthor=author;
