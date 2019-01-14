@@ -41,7 +41,7 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 	 * @param sentence the sentence whose author is to recognize.
 	 * @return the author of the sentence as recognized by the recognition system.
 	 */
-	public String recognizeAuthorSentence(String sentence, int i) {
+	public String recognizeAuthorSentence(String sentence) {
 		return authors.get(rand.nextInt(authors.size()));
 	}
 
@@ -64,7 +64,7 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 			while (scan.hasNextLine())
 			{
 				temoin = scan.nextLine();
-				mot.writeFile(b.recognizeAuthorSentence(temoin, 0) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
+				mot.writeFile(b.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
 			}
 			System.out.println("FINIS !");
 

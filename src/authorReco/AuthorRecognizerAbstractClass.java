@@ -109,7 +109,7 @@ public abstract class AuthorRecognizerAbstractClass {
 	 * @param sentence the sentence whose author is to recognize.
 	 * @return the author of the sentence as recognized by the recognition system.
 	 */
-	public abstract String recognizeAuthorSentence(String sentence, int i);
+	public abstract String recognizeAuthorSentence(String sentence);
 
 	/**
 	 * Method processing the sentences of a given reference file (one per line),
@@ -128,7 +128,7 @@ public abstract class AuthorRecognizerAbstractClass {
 
 		int i = 1;
 		for (String sentence: sentences) {
-			authorPredict = recognizeAuthorSentence(sentence, 0);
+			authorPredict = recognizeAuthorSentence(sentence);
 			authorPrediction.append(authorPredict);
 			authorPrediction.append("\n");
 			if(i % 1000 == 0) {
