@@ -24,16 +24,25 @@ public class CreateLanguageModels {
 	 */
 	public static void main(String[] args) {
 		//create the language models from the training corpora
-
+		int order = 3;
 		MiscUtils mot = new MiscUtils();
-		Map<String,List> map = new HashMap();
+		NgramUtils decoupeur = new NgramUtils();
 
-		for (String auteur : mot.readTextFileAsStringList("data/small_author_corpus/validation/authors.txt")) {
-			NgramCounts ngram = new NgramCounts();
-			List list = new ArrayList();
-			list.add(new File("data/author_corpus/train/" + auteur + ".txt"));
-			list.add(ngram);
-			map.put(auteur,list);
+		//Pour chaque auteur on prend son fichier de base avec les phrases
+		for (String auteur : mot.readTextFileAsStringList("data/small_author_corpus/validation/authors.txt"))
+		{
+			mot.writeFile(" ", "lm/small_author_corpus/trigram_" + auteur + ".lm", false);
+
+			//pour chaque phrase on les découpes en trigrams
+			for(String sentence : mot.readTextFileAsStringList("data/author_corpus/train/" + auteur + ".txt"))
+			{
+				//pour chaque trigram on l'ajoute au fichier
+				for(String trigram : decoupeur.decomposeIntoNgrams(sentence, order))
+				mot.writeFile(trigram, "lm/small_author_corpus/trigram_" + auteur + ".lm", true);
+			}
+
+
+
 		}
 
 	}

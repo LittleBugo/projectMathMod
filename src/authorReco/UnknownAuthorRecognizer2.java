@@ -13,7 +13,7 @@ import langModel.*;
  * @author N. Hernandez and S. Quiniou (2017)
  *
  */
-public class UnknownAuthorRecognizerXX extends UnknownAuthorRecognizer1 {
+public class UnknownAuthorRecognizer2 extends UnknownAuthorRecognizer1 {
 
     /**
      * Constructor.
@@ -25,7 +25,7 @@ public class UnknownAuthorRecognizerXX extends UnknownAuthorRecognizer1 {
      * @param authorFile the file path of the file containing
      * the names of the authors recognized by the system.
      */
-    public UnknownAuthorRecognizerXX(String configFile, String vocabFile, String authorFile) {
+    public UnknownAuthorRecognizer2(String configFile, String vocabFile, String authorFile) {
         super(configFile, vocabFile, authorFile);
     }
 
