@@ -37,8 +37,32 @@ public class UnknownAuthorRecognizerXX extends UnknownAuthorRecognizer1 {
      * @return the author of the sentence as recognized by the recognition system.
      */
     public String recognizeAuthorSentence(String sentence) {
-        // TODO
-        return UNKNOWN_AUTHOR;
+        double count=0.0;
+        double tmp;
+        Map<String, LanguageModelInterface> auteurLangModel;
+        LanguageModelInterface langModel;
+        //Initialise l'auteur à unknown.
+        String recognizedAuthor= UNKNOWN_AUTHOR;
+        //System.out.println(" ");
+        for(String author : super.authors)
+        {
+            //System.out.println(author);
+            auteurLangModel = this.authorLangModelsMap.get(author);
+            //System.out.println(auteurLangModel);
+            langModel = auteurLangModel.get(author+"_bi");
+            //System.out.println(langModel.getLMOrder());
+            tmp = langModel.getSentenceProb(sentence);
+            //System.out.println(tmp);
+            if(tmp >= count && tmp > 1.0E-300) //On récupère celui qui a la probabilité la plus forte seulement s'elle est supérieur
+            {
+                count=tmp;
+                recognizedAuthor=author;
+            }
+            //System.out.println(" ");
+            //System.out.println("----------------");
+            //System.out.println(" ");
+        }
+        return recognizedAuthor;
     }
 
     /**

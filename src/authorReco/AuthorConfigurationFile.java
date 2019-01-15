@@ -25,7 +25,7 @@ public class AuthorConfigurationFile {
 	 * Constructor.
 	 */
 	public AuthorConfigurationFile() {
-		authorNgramCountMap = new HashMap<String,Map<String,String>>();
+		this.authorNgramCountMap = new HashMap<String,Map<String,String>>();
 	}
 
 	/**

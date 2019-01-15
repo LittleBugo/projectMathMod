@@ -148,8 +148,5 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 		//computation of the performance of the recognition system
 		System.out.println(RecognizerPerformance.evaluateAuthors("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp1.txt"));
 
-
-		//computation of the performance of the recognition system
-		
 	}
 }

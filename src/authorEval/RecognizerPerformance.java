@@ -73,7 +73,6 @@ public class RecognizerPerformance {
 	 * @return a String containing the accuracy of the recognition system for each author.
 	 */
 	public static String evaluateAuthors (String refAuthorPath, String hypAuthorPath) {
-		
 		List<String> gold = MiscUtils.readTextFileAsStringList(refAuthorPath);
 		List<String> hyp = MiscUtils.readTextFileAsStringList(hypAuthorPath);
 		
@@ -109,7 +108,7 @@ public class RecognizerPerformance {
 			//increments the number of sentences of the current gold author
 			if(nbSentAuthor.containsKey(lang)){
 				nbSentAuthor.put(lang, nbSentAuthor.get(lang)+1);
-			} else{
+			} else {
 				nbSentAuthor.put(lang, 1);
 			}
 			//increments the number of correct sentences of the current gold author if equal to the current hyp author
@@ -117,7 +116,7 @@ public class RecognizerPerformance {
 				nbCorrect ++;
 				if(nbCorrectAuthor.containsKey(lang)){
 					nbCorrectAuthor.put(lang, nbCorrectAuthor.get(lang)+1);
-				} else{
+				} else {
 					nbCorrectAuthor.put(lang, 1);
 				}
 			}
