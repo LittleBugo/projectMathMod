@@ -43,12 +43,10 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	    List<String> scanConfig = MiscUtils.readTextFileAsStringList(configFile);
 	    //Initialisation de la HashMap qui est en attribut
 	    this.authorLangModelsMap = new HashMap<String, Map<String, LanguageModelInterface>>();
-	    //Initialisation du ngramCounts qui va permettre de créer le languagueModel qui est dans la MAP.
-	    NgramCounts ngram = new NgramCounts();
+
 	    //Initialisation du Vocabulary qui va de paire avec le ngram pour le languageModel. grâce à la classe supérieure
 	    super.loadVocabularyFile(vocabFile);
-	    //Initialisation du language (ici Naive mais on pourrait aussi avoir LaPlace
-        LanguageModelInterface language = new LaplaceLanguageModel();
+
         //Initialisation des auteurs qui seront reconnus par le système
 		super.loadAuthorFile(authorFile);
         //Lecture de chaque ligne du fichier
@@ -57,9 +55,15 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
             //découper dans le tableau chaque String pour avoir des mots séparés (séparation \t est la représentation de l'espace.
             String[] contientDesMots = ligne.split("\t");
 
+			//Initialisation du language LaPlace
+			LanguageModelInterface language = new LaplaceLanguageModel();
+			//Initialisation du ngramCounts qui va permettre de créer le languagueModel qui est dans la MAP.
+			NgramCounts ngram = new NgramCounts();
+			
             //Vérification que la ligne où il y a écris le nom de l'auteur coordonne avec les auteurs entrés dans le système.
 			if(super.authors.contains(contientDesMots[0]))
 			{
+
 				//Remplir le ngramCounts grâce au chemin qui même à l'"authorFile".
 				ngram.readNgramCountsFile(contientDesMots[2]);
 				//initialise l'intérieur du language avec le ngram et vocab initialisé juste avant
