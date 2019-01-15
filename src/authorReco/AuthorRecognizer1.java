@@ -123,7 +123,9 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 */
 	public static void main(String[] args) {
 
-		AuthorRecognizer1 b = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+
+		AuthorRecognizer1 exo3 = new AuthorRecognizer1("data/author_corpus/train/fichConfig_bigram_sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+		//AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
 
 		//computation of the hypothesis author file
 		try {
@@ -135,7 +137,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			while (scan.hasNextLine())
 			{
 				temoin = scan.nextLine();
-				mot.writeFile(b.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
+				mot.writeFile(exo3.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
 			}
 			System.out.println("FINIS !");
 
