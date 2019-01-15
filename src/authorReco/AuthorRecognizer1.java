@@ -24,7 +24,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 * (e.g., "zola-bigrams"), and the values of the second map are the LanguageModel objects 
 	 * built from the file path given in the AuthorConfigurationFile attribute.
 	 */
-	private Map<String, Map<String, LanguageModelInterface>> authorLangModelsMap;
+	protected Map<String, Map<String, LanguageModelInterface>> authorLangModelsMap;
 
 	/**
 	 * Constructor.
@@ -124,8 +124,8 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	public static void main(String[] args) {
 
 
-		AuthorRecognizer1 exo3 = new AuthorRecognizer1("data/author_corpus/train/fichConfig_bigram_sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
-		//AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+		//AuthorRecognizer1 exo3 = new AuthorRecognizer1("data/author_corpus/train/fichConfig_bigram_sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
 
 		//computation of the hypothesis author file
 		try {
@@ -137,7 +137,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			while (scan.hasNextLine())
 			{
 				temoin = scan.nextLine();
-				mot.writeFile(exo3.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
+				mot.writeFile(exo2.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
 			}
 			System.out.println("FINIS !");
 
@@ -146,7 +146,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 		}
 
 		//computation of the performance of the recognition system
-		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp1.txt"));
+		System.out.println(RecognizerPerformance.evaluateAuthors("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp1.txt"));
 
 
 		//computation of the performance of the recognition system
