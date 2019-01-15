@@ -73,6 +73,6 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 		}
 
 		//computation of the performance of the recognition system
-		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/sentences_100sentences.txt","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt"));
+		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt"));
 	}
 }

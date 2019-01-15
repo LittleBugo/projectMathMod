@@ -1,6 +1,7 @@
 package authorReco;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import authorEval.*;
@@ -130,11 +131,34 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 */
 	public static void main(String[] args) {
 		//initialization of the recognition system
-		AuthorRecognizer1 aut = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+		/*AuthorRecognizer1 aut = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
 		//computation of the hypothesis author file
 		String sentence = "J'en ai aucune idée, je me contente de viser dans le trou";
 		String laplace = aut.recognizeAuthorSentence(sentence);
+*/
 
+		AuthorRecognizer1 b = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+
+		//computation of the hypothesis author file
+		try {
+			File sentenceFile = new File("data/small_author_corpus/validation/sentences_100sentences.txt");
+			Scanner scan = new Scanner(sentenceFile);
+			MiscUtils mot = new MiscUtils();
+			mot.writeFile("","data/small_author_corpus/validation/authors_100sentences_hyp1.txt",false);
+			String temoin = "nothing here";
+			while (scan.hasNextLine())
+			{
+				temoin = scan.nextLine();
+				mot.writeFile(b.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
+			}
+			System.out.println("FINIS !");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		//computation of the performance of the recognition system
+		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp1.txt"));
 
 
 		//computation of the performance of the recognition system
