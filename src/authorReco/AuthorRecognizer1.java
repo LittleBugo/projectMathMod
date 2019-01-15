@@ -75,23 +75,10 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 				//ajouter à l'atribut la table créé préalablement.
 				this.authorLangModelsMap.put(contientDesMots[0], table);
 
-
 			}
 
         }
-
-/*
-	    super();
-	    loadAuthorConfigurationFile(configFile);
-        loadVocabularyFile(vocabFile);
-	    loadAuthorFile(authorFile);
-        this.authorLangModelsMap = new HashMap<>();
-        for (String auteur : super.authors)
-        {
-            Map tempToAdd = new HashMap();
-            tempToAdd.put("", super.vocabularyLM);
-        }
-*/	}
+	}
 
 	/**
 	 * Method recognizing and returning the author of the given sentence 
@@ -105,27 +92,28 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 		double tmp;
 		Map<String, LanguageModelInterface> auteurLangModel;
 		LanguageModelInterface langModel;
-		String recognizeAuthor= UNKNOWN_AUTHOR;
-		System.out.println(" ");
+		//Initialise l'auteur à unknown.
+		String recognizedAuthor= UNKNOWN_AUTHOR;
+		//System.out.println(" ");
 		for(String author : super.authors)
 		{
-			System.out.println(author);
+			//System.out.println(author);
 			auteurLangModel = this.authorLangModelsMap.get(author);
-			System.out.println(auteurLangModel);
+			//System.out.println(auteurLangModel);
 			langModel = auteurLangModel.get(author+"_bi");
-			System.out.println(langModel.getLMOrder());
+			//System.out.println(langModel.getLMOrder());
 			tmp = langModel.getSentenceProb(sentence);
-			System.out.println(tmp);
-			if(tmp >= count && tmp > 0.0)
+			//System.out.println(tmp);
+			if(tmp >= count && tmp > 0.0) //On récupère celui qui a la probabilité la plus forte (!= null)
 			{
 				count=tmp;
-				recognizeAuthor=author;
+				recognizedAuthor=author;
 			}
-			System.out.println(" ");
-			System.out.println("----------------");
-			System.out.println(" ");
+			//System.out.println(" ");
+			//System.out.println("----------------");
+			//System.out.println(" ");
 		}
-		return recognizeAuthor;
+		return recognizedAuthor;
 	}
 
 	/**
@@ -134,12 +122,6 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 * @param args arguments of the main method.
 	 */
 	public static void main(String[] args) {
-		//initialization of the recognition system
-		/*AuthorRecognizer1 aut = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
-		//computation of the hypothesis author file
-		String sentence = "J'en ai aucune idée, je me contente de viser dans le trou";
-		String laplace = aut.recognizeAuthorSentence(sentence);
-*/
 
 		AuthorRecognizer1 b = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
 
