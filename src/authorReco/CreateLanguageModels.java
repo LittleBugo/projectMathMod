@@ -27,20 +27,43 @@ public class CreateLanguageModels {
 		int order = 3;
 		MiscUtils mot = new MiscUtils();
 		NgramUtils decoupeur = new NgramUtils();
-
+		Map<String, Integer> correspondance = new HashMap(); //Map qui va permettre de compter les redondances de ngrams
 		//Pour chaque auteur on prend son fichier de base avec les phrases
 		for (String auteur : mot.readTextFileAsStringList("data/small_author_corpus/validation/authors.txt"))
 		{
 			mot.writeFile(" ", "lm/small_author_corpus/trigram_" + auteur + ".lm", false);
 
 			//pour chaque phrase on les découpes en trigrams
-			for(String sentence : mot.readTextFileAsStringList("data/author_corpus/train/" + auteur + ".txt"))
+			for(String sentence : mot.readTextFileAsStringList("data/small_author_corpus/train/" + auteur + ".txt"))
 			{
+				//Créé un filtre pour retirer tous les <s> </s> des phrases.
+				char[] sent = sentence.toCharArray();
+				sentence = "";
+				for(int i = 4; i <sent.length-4; i++)
+				{
+					sentence+=sent[i];
+				}
+
 				//pour chaque trigram on l'ajoute au fichier
 				for(String trigram : decoupeur.decomposeIntoNgrams(sentence, order))
-				mot.writeFile(trigram, "lm/small_author_corpus/trigram_" + auteur + ".lm", true);
-			}
+				{
+						if(!correspondance.containsKey(trigram)) //Créer la ligne BiGram si elle n'est pas déjà présente
+						{
+							correspondance.put(trigram, 1);
+						}
+						else //Sinon incrémente le nombre de fois qu'il apparait.
+						{
+							correspondance.replace(trigram, correspondance.get(trigram) +1);
+						}
 
+				}
+			}
+			for(String trigram : correspondance.keySet()) //Enfin on écrit dans le fichier chaque ngram avec son nombre d'apparition
+ 			{
+				int nombrecopies = correspondance.get(trigram);
+				mot.writeFile(trigram +" " + nombrecopies+ "\n", "lm/small_author_corpus/trigram_" + auteur + ".lm", true);
+			}
+			System.out.println(auteur);
 
 
 		}
