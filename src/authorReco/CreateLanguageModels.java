@@ -47,6 +47,8 @@ public class CreateLanguageModels {
 				//pour chaque trigram on l'ajoute au fichier
 				for(String trigram : decoupeur.decomposeIntoNgrams(sentence, order))
 				{
+					if(trigram.length()>1)
+					{
 						if(!correspondance.containsKey(trigram)) //Créer la ligne BiGram si elle n'est pas déjà présente
 						{
 							correspondance.put(trigram, 1);
@@ -55,6 +57,7 @@ public class CreateLanguageModels {
 						{
 							correspondance.replace(trigram, correspondance.get(trigram) +1);
 						}
+					}
 
 				}
 			}
