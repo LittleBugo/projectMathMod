@@ -32,7 +32,7 @@ public class CreateLanguageModels {
 		for (String auteur : mot.readTextFileAsStringList("data/small_author_corpus/validation/authors.txt"))
 		{
 			mot.writeFile(" ", "lm/small_author_corpus/trigram_" + auteur + ".lm", false);
-
+			mot.writeFile("", "lm/small_author_corpus/fichConfig_trigram_100sentences.txt", false);
 			//pour chaque phrase on les découpes en trigrams
 			for(String sentence : mot.readTextFileAsStringList("data/small_author_corpus/train/" + auteur + ".txt"))
 			{
@@ -68,8 +68,10 @@ public class CreateLanguageModels {
 			}
 			System.out.println(auteur);
 
+			mot.writeFile(auteur + " " + "auteur_tri" + "lm/small_author_corpus/trigram_\" + auteur + \".lm", "lm/small_author_corpus/fichConfig_trigram_100sentences.txt", true);
 
 		}
+
 
 	}
 }
