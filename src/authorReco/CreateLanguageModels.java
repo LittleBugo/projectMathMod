@@ -69,7 +69,7 @@ public class CreateLanguageModels {
 			}
 			System.out.println(auteur);
 
-			mot.writeFile(auteur + "   " + auteur + "_tri   lm/small_author_corpus/trigram_" + auteur + ".lm \n", "lm/small_author_corpus/fichConfig_trigram_1000sentences.txt", true);
+			mot.writeFile(auteur + "\t" + auteur + "_tri\tlm/small_author_corpus/trigram_" + auteur + ".lm \n", "lm/small_author_corpus/fichConfig_trigram_1000sentences.txt", true);
 		}
 	}
 }
