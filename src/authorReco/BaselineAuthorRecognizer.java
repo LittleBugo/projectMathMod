@@ -53,26 +53,33 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 	public static void main(String[] args) {
 		//initialization of the recognition system
 		BaselineAuthorRecognizer b = new BaselineAuthorRecognizer("data/small_author_corpus/validation/authors_100sentences_ref.txt");
-		
-		//computation of the hypothesis author file
-		try {
-			File sentenceFile = new File("data/small_author_corpus/validation/sentences_100sentences.txt");
-			Scanner scan = new Scanner(sentenceFile);
-			MiscUtils mot = new MiscUtils();
-			mot.writeFile("","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",false);
-			String temoin = "nothing here";
-			while (scan.hasNextLine())
-			{
-				temoin = scan.nextLine();
-				mot.writeFile(b.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
-			}
-			System.out.println("FINIS !");
+		double moyenne=0.0;
+		int nbBoucles = 100;
+		for(int i=0; i<nbBoucles; i++)
+		{
+			//computation of the hypothesis author file
+			try {
+				File sentenceFile = new File("data/small_author_corpus/validation/sentences_100sentences.txt");
+				Scanner scan = new Scanner(sentenceFile);
+				MiscUtils mot = new MiscUtils();
+				mot.writeFile("","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",false);
+				String temoin = "nothing here";
+				while (scan.hasNextLine())
+				{
+					temoin = scan.nextLine();
+					mot.writeFile(b.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt",true);
+				}
 
-		} catch (IOException e) {
-			e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			//computation of the performance of the recognition system
+			moyenne += RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt");
+
 		}
 
-		//computation of the performance of the recognition system
-		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt"));
-	}
+		System.out.println("Moyenne des résultats: "+ moyenne/nbBoucles);
+		}
+
 }
