@@ -59,13 +59,14 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			LanguageModelInterface language = new LaplaceLanguageModel();
 			//Initialisation du ngramCounts qui va permettre de créer le languagueModel qui est dans la MAP.
 			NgramCounts ngram = new NgramCounts();
-			
+
             //Vérification que la ligne où il y a écris le nom de l'auteur coordonne avec les auteurs entrés dans le système.
 			if(super.authors.contains(contientDesMots[0]))
 			{
-
 				//Remplir le ngramCounts grâce au chemin qui même à l'"authorFile".
-				ngram.readNgramCountsFile(contientDesMots[2]);
+				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 1);
+//				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 2);
+//				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 3);
 				//initialise l'intérieur du language avec le ngram et vocab initialisé juste avant
 				language.setNgramCounts(ngram, super.vocabularyLM);
 				//Créé la map qui est intégrée par la suite à la map
@@ -100,7 +101,9 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			//System.out.println(author);
 			auteurLangModel = this.authorLangModelsMap.get(author);
 			//System.out.println(auteurLangModel);
-			langModel = auteurLangModel.get(author+"_bi");
+//			langModel = auteurLangModel.get(author+"_tri");
+//			langModel = auteurLangModel.get(author+"_bi");
+			langModel = auteurLangModel.get(author+"_uni");
 			//System.out.println(langModel.getLMOrder());
 			tmp = langModel.getSentenceProb(sentence);
 			//System.out.println(tmp);
@@ -124,8 +127,9 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	public static void main(String[] args) {
 
 
-		//AuthorRecognizer1 exo3 = new AuthorRecognizer1("data/author_corpus/train/fichConfig_bigram_sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
-		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_unigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+//		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+//		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_trigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
 
 		//computation of the hypothesis author file
 		try {
