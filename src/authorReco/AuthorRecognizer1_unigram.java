@@ -1,17 +1,11 @@
 package authorReco;
 
-		import authorEval.RecognizerPerformance;
-		import langModel.LanguageModelInterface;
-		import langModel.LaplaceLanguageModel;
-		import langModel.MiscUtils;
-		import langModel.NgramCounts;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
-		import java.io.File;
-		import java.io.IOException;
-		import java.util.HashMap;
-		import java.util.List;
-		import java.util.Map;
-		import java.util.Scanner;
+import authorEval.*;
+import langModel.*;
 
 /**
  * Class AuthorRecognizer1: a first author recognition system that recognizes
@@ -21,7 +15,7 @@ package authorReco;
  * @author N. Hernandez and S. Quiniou (2017)
  *
  */
-public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
+public class AuthorRecognizer1_unigram extends AuthorRecognizerAbstractClass {
 	/**
 	 * Map of LanguageModels associated with each author (each author can be
 	 * associated with several language models).
@@ -42,7 +36,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 * @param authorFile the file path of the file containing
 	 * the names of the authors recognized by the system.
 	 */
-	public AuthorRecognizer1(String configFile, String vocabFile, String authorFile) {
+	public AuthorRecognizer1_unigram(String configFile, String vocabFile, String authorFile) {
 		//Initialisation du fichier de configuration
 		super.loadAuthorConfigurationFile(configFile);
 		//Initialisation du scanneur pour lire le fichier
@@ -70,7 +64,8 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			if(super.authors.contains(contientDesMots[0]))
 			{
 				//Remplir le ngramCounts grâce au chemin qui même à l'"authorFile".
-				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 2);
+				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 1);
+//				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 2);
 //				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 3);
 				//initialise l'intérieur du language avec le ngram et vocab initialisé juste avant
 				language.setNgramCounts(ngram, super.vocabularyLM);
@@ -106,7 +101,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			//System.out.println(author);
 			auteurLangModel = this.authorLangModelsMap.get(author);
 			//System.out.println(auteurLangModel);
-			langModel = auteurLangModel.get(author+"_bi");
+			langModel = auteurLangModel.get(author+"_uni");
 			//System.out.println(langModel.getLMOrder());
 			tmp = langModel.getSentenceProb(sentence);
 			//System.out.println(tmp);
@@ -131,8 +126,8 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	public static void main(String[] args) {
 
 
-		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
-//		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_trigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+		AuthorRecognizer1_unigram exo2 = new AuthorRecognizer1_unigram("lm/small_author_corpus/fichConfig_unigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+
 
 		//computation of the hypothesis author file
 		try {
@@ -146,7 +141,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 				temoin = scan.nextLine();
 				mot.writeFile(exo2.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
 			}
-			System.out.println("Bigram : FINIS !");
+			System.out.println("Unigram FINIS !");
 
 		} catch (IOException e) {
 			e.printStackTrace();

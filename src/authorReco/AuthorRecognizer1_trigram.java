@@ -1,27 +1,27 @@
 package authorReco;
 
-		import authorEval.RecognizerPerformance;
-		import langModel.LanguageModelInterface;
-		import langModel.LaplaceLanguageModel;
-		import langModel.MiscUtils;
-		import langModel.NgramCounts;
+import authorEval.RecognizerPerformance;
+import langModel.LanguageModelInterface;
+import langModel.LaplaceLanguageModel;
+import langModel.MiscUtils;
+import langModel.NgramCounts;
 
-		import java.io.File;
-		import java.io.IOException;
-		import java.util.HashMap;
-		import java.util.List;
-		import java.util.Map;
-		import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
- * Class AuthorRecognizer1: a first author recognition system that recognizes
+ * Class AuthorRecognizer1: a first author recognition system that recognizes 
  * the author of a sentence by using the language models read from a configuration system.
  * (no unknown author can be detected)
- *
+ * 
  * @author N. Hernandez and S. Quiniou (2017)
  *
  */
-public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
+public class AuthorRecognizer1_trigram extends AuthorRecognizerAbstractClass {
 	/**
 	 * Map of LanguageModels associated with each author (each author can be
 	 * associated with several language models).
@@ -42,36 +42,35 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 	 * @param authorFile the file path of the file containing
 	 * the names of the authors recognized by the system.
 	 */
-	public AuthorRecognizer1(String configFile, String vocabFile, String authorFile) {
-		//Initialisation du fichier de configuration
+	public AuthorRecognizer1_trigram(String configFile, String vocabFile, String authorFile) {
+	    //Initialisation du fichier de configuration
 		super.loadAuthorConfigurationFile(configFile);
 		//Initialisation du scanneur pour lire le fichier
-		List<String> scanConfig = MiscUtils.readTextFileAsStringList(configFile);
-		//Initialisation de la HashMap qui est en attribut
-		this.authorLangModelsMap = new HashMap<String, Map<String, LanguageModelInterface>>();
+	    List<String> scanConfig = MiscUtils.readTextFileAsStringList(configFile);
+	    //Initialisation de la HashMap qui est en attribut
+	    this.authorLangModelsMap = new HashMap<String, Map<String, LanguageModelInterface>>();
 
-		//Initialisation du Vocabulary qui va de paire avec le ngram pour le languageModel. grâce à la classe supérieure
-		super.loadVocabularyFile(vocabFile);
+	    //Initialisation du Vocabulary qui va de paire avec le ngram pour le languageModel. grâce à la classe supérieure
+	    super.loadVocabularyFile(vocabFile);
 
-		//Initialisation des auteurs qui seront reconnus par le système
+        //Initialisation des auteurs qui seront reconnus par le système
 		super.loadAuthorFile(authorFile);
-		//Lecture de chaque ligne du fichier
+        //Lecture de chaque ligne du fichier
 		for(String ligne : scanConfig){
 
-			//découper dans le tableau chaque String pour avoir des mots séparés (séparation \t est la représentation de l'espace.
-			String[] contientDesMots = ligne.split("\t");
+            //découper dans le tableau chaque String pour avoir des mots séparés (séparation \t est la représentation de l'espace.
+            String[] contientDesMots = ligne.split("\t");
 
 			//Initialisation du language LaPlace
 			LanguageModelInterface language = new LaplaceLanguageModel();
 			//Initialisation du ngramCounts qui va permettre de créer le languagueModel qui est dans la MAP.
 			NgramCounts ngram = new NgramCounts();
 
-			//Vérification que la ligne où il y a écris le nom de l'auteur coordonne avec les auteurs entrés dans le système.
+            //Vérification que la ligne où il y a écris le nom de l'auteur coordonne avec les auteurs entrés dans le système.
 			if(super.authors.contains(contientDesMots[0]))
 			{
 				//Remplir le ngramCounts grâce au chemin qui même à l'"authorFile".
-				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 2);
-//				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 3);
+				ngram.scanTextFile(contientDesMots[2], super.vocabularyLM, 3);
 				//initialise l'intérieur du language avec le ngram et vocab initialisé juste avant
 				language.setNgramCounts(ngram, super.vocabularyLM);
 				//Créé la map qui est intégrée par la suite à la map
@@ -83,7 +82,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 
 			}
 
-		}
+        }
 	}
 
 	/**
@@ -106,7 +105,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 			//System.out.println(author);
 			auteurLangModel = this.authorLangModelsMap.get(author);
 			//System.out.println(auteurLangModel);
-			langModel = auteurLangModel.get(author+"_bi");
+			langModel = auteurLangModel.get(author+"_tri");
 			//System.out.println(langModel.getLMOrder());
 			tmp = langModel.getSentenceProb(sentence);
 			//System.out.println(tmp);
@@ -125,14 +124,13 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 
 	/**
 	 * Main method.
-	 *
+	 * 
 	 * @param args arguments of the main method.
 	 */
 	public static void main(String[] args) {
 
 
-		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_bigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
-//		AuthorRecognizer1 exo2 = new AuthorRecognizer1("lm/small_author_corpus/fichConfig_trigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
+		AuthorRecognizer1_trigram exo2 = new AuthorRecognizer1_trigram("lm/small_author_corpus/fichConfig_trigram_1000sentences.txt","lm/small_author_corpus/corpus_20000.vocab", "data/author_corpus/validation/authors.txt");
 
 		//computation of the hypothesis author file
 		try {
@@ -146,7 +144,7 @@ public class AuthorRecognizer1 extends AuthorRecognizerAbstractClass {
 				temoin = scan.nextLine();
 				mot.writeFile(exo2.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
 			}
-			System.out.println("Bigram : FINIS !");
+			System.out.println("Trigram FINIS !");
 
 		} catch (IOException e) {
 			e.printStackTrace();
