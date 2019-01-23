@@ -55,7 +55,7 @@ public class UnknownAuthorRecognizer1 extends AuthorRecognizer1 {
 			//System.out.println(langModel.getLMOrder());
 			tmp = langModel.getSentenceProb(sentence);
 			//System.out.println(tmp);
-			if(tmp >= count && tmp > 1.0E-300) //On récupère celui qui a la probabilité la plus forte seulement s'elle est supérieur
+			if(tmp >= count && tmp > 1.0E-150) //On récupère celui qui a la probabilité la plus forte seulement s'elle est supérieur
 			{
 				count=tmp;
 				recognizedAuthor=author;
@@ -96,10 +96,17 @@ public class UnknownAuthorRecognizer1 extends AuthorRecognizer1 {
 
 		//computation of the performance of the recognition system
 
-		System.out.println(RecognizerPerformance.evaluateAuthors("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp1Unknown.txt"));
+		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp1Unknown.txt"));
 
 		//TODO afficher le nombre de unknown parmis la liste.
 		//computation of the performance of the recognition system
-
+		List<String> list = MiscUtils.readTextFileAsStringList("data/small_author_corpus/validation/authors_100sentences_hyp1Unknown.txt");
+		int countUNknown=0;
+		for (String auteur : list)
+		{
+			if(auteur.equals("unknown"))
+				countUNknown++;
+		}
+		System.out.println("Il y a " + countUNknown + " phrases non reocnnues.");
 	}
 	}
