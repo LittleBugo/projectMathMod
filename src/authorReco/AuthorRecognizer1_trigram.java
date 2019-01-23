@@ -137,12 +137,12 @@ public class AuthorRecognizer1_trigram extends AuthorRecognizerAbstractClass {
 			File sentenceFile = new File("data/small_author_corpus/validation/sentences_100sentences.txt");
 			Scanner scan = new Scanner(sentenceFile);
 			MiscUtils mot = new MiscUtils();
-			mot.writeFile("","data/small_author_corpus/validation/authors_100sentences_hyp1.txt",false);
+			mot.writeFile("","data/small_author_corpus/validation/authors_100sentences_hyp1_tri.txt",false);
 			String temoin = "nothing here";
 			while (scan.hasNextLine())
 			{
 				temoin = scan.nextLine();
-				mot.writeFile(exo2.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1.txt",true);
+				mot.writeFile(exo2.recognizeAuthorSentence(temoin) + "\n", "data/small_author_corpus/validation/authors_100sentences_hyp1_tri.txt",true);
 			}
 			System.out.println("Trigram FINIS !");
 
