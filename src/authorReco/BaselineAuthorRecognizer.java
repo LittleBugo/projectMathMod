@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-
 import authorEval.*;
 import langModel.MiscUtils;
 
@@ -76,10 +75,7 @@ public class BaselineAuthorRecognizer extends AuthorRecognizerAbstractClass {
 
 			//computation of the performance of the recognition system
 			moyenne += RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp-baseline.txt");
-
 		}
-
 		System.out.println("Moyenne des résultats: "+ moyenne/nbBoucles);
-		}
-
+	}
 }
