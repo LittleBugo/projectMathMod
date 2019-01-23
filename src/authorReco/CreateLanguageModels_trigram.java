@@ -1,10 +1,10 @@
 package authorReco;
 
-import langModel.*;
+import langModel.MiscUtils;
+import langModel.NgramUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class CreateLanguageModels: a class to create the language models used in the recognition systems.
@@ -12,7 +12,7 @@ import java.util.*;
  * @author N. Hernandez and S. Quiniou (2017)
  *
  */
-public class CreateLanguageModels {
+public class CreateLanguageModels_trigram {
 
 	/* constructeur */
 	//public CreateLanguageModels();
@@ -29,13 +29,11 @@ public class CreateLanguageModels {
 		MiscUtils mot = new MiscUtils();
 		NgramUtils decoupeur = new NgramUtils();
 		Map<String, Integer> correspondance = new HashMap(); //Map qui va permettre de compter les redondances de ngrams
-//		mot.writeFile("", "lm/small_author_corpus/fichConfig_trigram_1000sentences.txt", false);
-		mot.writeFile("", "lm/small_author_corpus/fichConfig_unigram_1000sentences.txt", false);
+		mot.writeFile("", "lm/small_author_corpus/fichConfig_trigram_1000sentences.txt", false);
 		//Pour chaque auteur on prend son fichier de base avec les phrases
 		for (String auteur : mot.readTextFileAsStringList("data/small_author_corpus/validation/authors.txt"))
 		{
-//			mot.writeFile("", "lm/small_author_corpus/trigram_" + auteur + ".lm", false);
-			mot.writeFile("", "lm/small_author_corpus/unigram_" + auteur + ".lm", false);
+			mot.writeFile("", "lm/small_author_corpus/trigram_" + auteur + ".lm", false);
 			//pour chaque phrase on les découpes en trigrams
 			for(String sentence : mot.readTextFileAsStringList("data/small_author_corpus/train/" + auteur + ".txt"))
 			{
@@ -68,13 +66,11 @@ public class CreateLanguageModels {
 			for(String trigram : correspondance.keySet())
  			{
 				int nombrecopies = correspondance.get(trigram);
-//				mot.writeFile(trigram +" " + nombrecopies+ "\n", "lm/small_author_corpus/trigram_" + auteur + ".lm", true);
-				mot.writeFile(trigram +" " + nombrecopies+ "\n", "lm/small_author_corpus/unigram_" + auteur + ".lm", true);
+				mot.writeFile(trigram +" " + nombrecopies+ "\n", "lm/small_author_corpus/trigram_" + auteur + ".lm", true);
 			}
 			System.out.println(auteur);
 
-//			mot.writeFile(auteur + "\t" + auteur + "_tri\tlm/small_author_corpus/trigram_" + auteur + ".lm \n", "lm/small_author_corpus/fichConfig_trigram_1000sentences.txt", true);
-			mot.writeFile(auteur + "\t" + auteur + "_uni\tlm/small_author_corpus/unigram_" + auteur + ".lm \n", "lm/small_author_corpus/fichConfig_unigram_1000sentences.txt", true);
+			mot.writeFile(auteur + "\t" + auteur + "_tri\tlm/small_author_corpus/trigram_" + auteur + ".lm \n", "lm/small_author_corpus/fichConfig_trigram_1000sentences.txt", true);
 		}
 	}
 }
