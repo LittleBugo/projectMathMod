@@ -98,7 +98,6 @@ public class UnknownAuthorRecognizer1 extends AuthorRecognizer1 {
 
 		System.out.println(RecognizerPerformance.evaluate("data/small_author_corpus/validation/authors_100sentences_ref.txt","data/small_author_corpus/validation/authors_100sentences_hyp1Unknown.txt"));
 
-		//TODO afficher le nombre de unknown parmis la liste.
 		//computation of the performance of the recognition system
 		List<String> list = MiscUtils.readTextFileAsStringList("data/small_author_corpus/validation/authors_100sentences_hyp1Unknown.txt");
 		int countUNknown=0;
