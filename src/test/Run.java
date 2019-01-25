@@ -22,14 +22,13 @@ public class Run {
 
         MiscUtils createur = new MiscUtils();
 
+        createur.writeFile("","data/author_corpus/test/authors-hyp1.txt",false);
+        createur.writeFile("","data/author_corpus/test/authors-hyp2.txt",false);
 
-        createur.writeFile("","src/test/authors-hyp1.txt",false);
-        createur.writeFile("","src/test/authors-hyp2.txt",false);
-
-        for(String sentence : createur.readTextFileAsStringList("src/test/sentencesTest.txt"))
+        for(String sentence : createur.readTextFileAsStringList("data/author_corpus/test/sentencesTest.txt"))
         {
-            createur.writeFile(system_1.recognizeAuthorSentence(sentence) + "\n","src/test/authors-hyp1.txt",true);
-            createur.writeFile(system_2.recognizeAuthorSentence(sentence) + "\n","src/test/authors-hyp2.txt",true);
+            createur.writeFile(system_1.recognizeAuthorSentence(sentence) + "\n","data/author_corpus/test/authors-hyp1.txt",true);
+            createur.writeFile(system_2.recognizeAuthorSentence(sentence) + "\n","data/author_corpus/test/authors-hyp2.txt",true);
         }
 
 
